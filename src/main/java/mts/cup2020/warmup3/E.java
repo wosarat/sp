@@ -18,7 +18,7 @@ import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
-public class A implements Runnable {
+public class E implements Runnable {
 	private final static long START_TIME=System.currentTimeMillis();
 
 	private final static boolean USE_FILES=false;
@@ -322,7 +322,7 @@ public class A implements Runnable {
 	private final PrintWriter out;
 
 
-	public A(Reader reader, Writer writer){
+	public E(Reader reader, Writer writer){
 		this.reader=new BufferedReader(reader,DEFAULT_BUFFER_SIZE);
 		this.out=new PrintWriter(new BufferedWriter(writer, DEFAULT_BUFFER_SIZE),false);
 		in=new FastScanner(this.reader);
@@ -335,7 +335,7 @@ public class A implements Runnable {
 
 		try(InputStream input=USE_FILES?new FileInputStream(IN_FILE):System.in;
 				OutputStream outputStream=USE_FILES?new FileOutputStream(OUT_FILE):System.out;){
-			new A(
+			new E(
 					new InputStreamReader(input, SYSTEM_ENCODING),
 					new OutputStreamWriter(outputStream, SYSTEM_ENCODING)).run();
 		}
@@ -359,29 +359,27 @@ public class A implements Runnable {
 	}
 
 	private void solve() throws Exception{
-		int n = in.nextInt();
-		int m = in.nextInt();
-		char[] asteroids=new char[n];
-		for(int i=0;i<n;i++) {
-			asteroids[i]=in.nextString().charAt(0);
-		}
-		int count=0;
-		for(int i=0;i<m;i++) {
-			char c=in.nextString().charAt(0);
-			int l=in.nextInt();
-			if(asteroids.length<l) {
-				continue;
+		long x = in.nextInt();
+		@SuppressWarnings("unused")
+		long y = in.nextInt();
+		char[] a=in.nextString().toCharArray();
+		char[] b=in.nextString().toCharArray();
+		long al=a.length;
+		long bl=b.length;
+		long count=0;
+		long length=0;
+		while(true) {
+			long aIndex = length%al;
+			long bIndex = length%bl;
+			if(aIndex==0&&bIndex==0&&length>0) {
+				break;
 			}
-			char a = asteroids[l-1];
-			if(a==0) {
-				continue;
-			}
-			if(c>=a) {
+			if(a[(int) aIndex]==b[(int) bIndex]) {
 				count++;
-				asteroids[l-1]=0;
 			}
+			length++;
 		}
-		out.println(count);
+		out.println(x*al/length*count);
 	}
 
 }
