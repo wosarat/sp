@@ -15,6 +15,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.text.DecimalFormat;
+import java.util.BitSet;
 import java.util.StringTokenizer;
 
 public class Template implements Runnable {
@@ -210,6 +211,21 @@ public class Template implements Runnable {
 				min=r;
 			}
 			return max;
+		}
+		public static BitSet getNonPrimes(int max) {
+			BitSet nonPrime = new BitSet(max+1);
+			nonPrime.set(0);
+			nonPrime.set(1);
+			for(int i=2;;i=nonPrime.nextClearBit(i+1)){
+				long from = ((long)i)*i;
+				if(from>max){
+					break;
+				}
+				for(long j=from;j<=max;j+=i){
+					nonPrime.set((int) j);
+				}
+			}
+			return nonPrime;
 		}
 	}
 
