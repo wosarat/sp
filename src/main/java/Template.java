@@ -213,7 +213,76 @@ public class Template implements Runnable {
 		}
 	}
 
-	public final static class FastScanner{
+	public static final class SmartPrintWriter extends PrintWriter{
+		private final StringBuilder sb = new StringBuilder(50);
+		private char[] chars= new char[50];
+		public SmartPrintWriter(Writer out, boolean autoFlush) {
+			super(out, autoFlush);
+		}
+		@Override
+		public void print(long value) {
+			sb.setLength(0);
+			sb.append(value);
+			flashStringBuilder();
+		}
+		
+		@Override
+		public void println(long value) {
+            print(value);
+            println();
+		}
+
+		@Override
+		public void print(int value) {
+			sb.setLength(0);
+			sb.append(value);
+			flashStringBuilder();
+		}
+		
+		@Override
+		public void println(int value) {
+            print(value);
+            println();
+		}
+
+		@Override
+		public void print(double value) {
+			sb.setLength(0);
+			sb.append(value);
+			flashStringBuilder();
+		}
+		
+		@Override
+		public void println(double value) {
+            print(value);
+            println();
+		}
+
+		
+		@Override
+		public void print(float value) {
+			sb.setLength(0);
+			sb.append(value);
+			flashStringBuilder();
+		}
+		
+		@Override
+		public void println(float value) {
+            print(value);
+            println();
+		}
+
+		
+		private final void flashStringBuilder() {
+			int length = sb.length();
+			if(chars.length<length) {
+				chars=new char[length];
+			}
+			sb.getChars(0, length, chars, 0);
+			super.write(chars, 0, length);
+		}
+	}
+	public static final class FastScanner{
 		private BufferedReader reader;
 		private StringTokenizer currentTokenizer;
 		public FastScanner(Reader reader) {
@@ -230,7 +299,6 @@ public class Template implements Runnable {
 					String line;
 					while((line=reader.readLine()).isEmpty()){
 						log.debug("Empty line has been skipped");
-						continue;
 					}
 					log.debug("Input line has been read:'%s'", line);
 					currentTokenizer=new  StringTokenizer(line);
@@ -288,7 +356,7 @@ public class Template implements Runnable {
 
 
 	}
-	public final static class MultidimensionalArrayHelper{
+	public static final class MultidimensionalArrayHelper{
 		private final int[] dimensions;
 		private final int size;
 		public MultidimensionalArrayHelper(int ...dimensions) {
@@ -315,15 +383,16 @@ public class Template implements Runnable {
 	}
 
 
-	private final static Logger log=new Logger();
+	private static final Logger log=new Logger();
 	private final BufferedReader reader;
 	private final FastScanner in;
-	private final PrintWriter out;
+	private final SmartPrintWriter out;
 
+	
 
 	public Template(Reader reader, Writer writer){
 		this.reader=new BufferedReader(reader,DEFAULT_BUFFER_SIZE);
-		this.out=new PrintWriter(new BufferedWriter(writer, DEFAULT_BUFFER_SIZE),false);
+		this.out=new SmartPrintWriter(new BufferedWriter(writer, DEFAULT_BUFFER_SIZE),false);
 		in=new FastScanner(this.reader);
 	}
 

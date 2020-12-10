@@ -91,7 +91,7 @@ public class B implements Runnable {
     }
 
     public final static class FastScanner{
-        private BufferedReader reader;
+        private final BufferedReader reader;
         private StringTokenizer currentTokenizer;
         public FastScanner(Reader reader) {
             if(reader instanceof BufferedReader){
