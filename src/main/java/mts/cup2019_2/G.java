@@ -371,7 +371,6 @@ public class G implements Runnable {
    
         @Override
         public int compareTo(OurBigDecimal o) {
-            // TODO Auto-generated method stub
             return bd.compareTo(o.bd);
         }
 	    

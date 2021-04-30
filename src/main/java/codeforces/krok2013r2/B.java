@@ -28,7 +28,6 @@ public class B {
      * 
      */
     public B() throws Exception{
-        // TODO Auto-generated constructor stub
     }
     /**
      * @throws IOException 

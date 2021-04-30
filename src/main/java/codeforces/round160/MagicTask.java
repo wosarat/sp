@@ -19,7 +19,6 @@ public class MagicTask {
      * 
      */
     public MagicTask() throws UnsupportedEncodingException{
-        // TODO Auto-generated constructor stub
     }
 
     /**
